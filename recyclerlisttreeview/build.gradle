@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName '0.1.5'
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '28.0.3'
+    productFlavors {
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.+'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.android.support:recyclerview-v7:28.+'
+}
+
+//apply from: '../bintray.gradle'
+
+publish {
+    userOrg = 'niugao'
+    repoName = 'NiuEduAndroidLib'
+    groupId = 'com.edu'
+    artifactId = 'recyclerlisttreeview'
+    publishVersion = '0.1.5'
+    desc = 'Fastest Android Tree View lib bases on RecyclerView'
+    website = 'https://github.com/niugao/RecyclerListTreeView'
+    bintrayUser = 'niugao'
+    bintrayKey = '987f1a844cd2dcca041ece51ea20f3ad19fdaf69'
+    dryRun=false //必须为false，否则不上传
+}
+
+//Cammand to upload lib to bintray is:
+//gradlew clean build bintrayUpload
+
+//如果发现找不到服务器Host地址，ping一下再上传
+//Windows下由于不是UTF8内码，jardoc编译会失败
